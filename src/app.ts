@@ -3,10 +3,10 @@ dotenv.config();
 import express from "express"
 import cors from "cors"
 import createError from "http-errors"
-import Logger from './lib/logger';
 import connectDatabase from './database';
+import morgan from "morgan"
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 const buildServer = async () : Promise<express.Application> => {
     const server = express();
@@ -14,6 +14,7 @@ const buildServer = async () : Promise<express.Application> => {
     server.use(cors({origin: "*"}));
     server.use(express.json());
     server.use(express.urlencoded({extended: true}));
+    server.use(morgan("dev"))
 
     server.all("/health-check", (req : express.Request, res : express.Response) => res.status(200).end("Hrrr hyg mee pyat twr p. (mee sat noe)²"));
 
@@ -40,19 +41,17 @@ const buildServer = async () : Promise<express.Application> => {
 const startServer= async () : Promise<void> => {
     const server = await buildServer();
     server.listen(PORT, () => {
-        Logger.info("Node Environment: " + process.env.NODE_ENV);
-        Logger.info(`Server is running at http://localhost:${PORT}}`)
+        console.info(`Server is running at http://localhost:${PORT}}`)
     })
 }
 
-export function boot () {
+export async function boot () {
     (async () => {
         try {
             await connectDatabase();
-            Logger.info("Connected to database successfully");
             await startServer();
         } catch (error) {
-            Logger.error(error);
+            console.error(error)
         }
     })()
 }
