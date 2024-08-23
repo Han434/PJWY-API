@@ -5,6 +5,7 @@ import cors from "cors"
 import createError from "http-errors"
 import connectDatabase from './database';
 import morgan from "morgan"
+import routes from "./routes"
 
 const PORT = process.env.PORT || 5000;
 
@@ -14,9 +15,12 @@ const buildServer = async () : Promise<express.Application> => {
     server.use(cors({origin: "*"}));
     server.use(express.json());
     server.use(express.urlencoded({extended: true}));
-    server.use(morgan("dev"))
+    server.use(morgan("dev"));
 
     server.all("/health-check", (req : express.Request, res : express.Response) => res.status(200).end("Hrrr hyg mee pyat twr p. (mee sat noe)²"));
+
+    // Routes 
+    server.use("/", routes)
 
     server.use('*', (req: express.Request, res: express.Response, next: express.NextFunction) => {
         next(createError(404, 'Route not found'));
