@@ -1,15 +1,12 @@
 import mongoose from "mongoose";
+import logger from "../config/Logger";
 
-async function connectDatabase() : Promise<void> {
+const connectDb =  async () => {
     try {
-        const baseURl = "mongodb://";
-        const {DB_NAME, DB_HOST} = process.env;
-        await mongoose.connect(`${baseURl}${DB_HOST}/${DB_NAME}`);
-        console.info("Connected to MongoDB");
+    await mongoose.connect('mongodb://127.0.0.1:27017/testify');
+        logger.info("Connected to database")
     } catch (error) {
-        console.error("Database connection failed");
-        return Promise.reject(error);
+        logger.info("Fail to Connect database");
     }
 }
-
-export default connectDatabase
+export default connectDb

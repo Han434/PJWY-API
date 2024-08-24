@@ -1,0 +1,18 @@
+{
+    "apps": [{
+        "name": "app",
+        "script": "./dist/index.js",
+        "watch": ["dist"],
+        "ignore_watch": ["node_modules", "dist/logs"],
+        "env_development": {
+            "NODE_ENV": "development"
+        },
+        "env_production": {
+            "NODE_ENV": "production"
+        },
+        "env_local": {
+            "NODE_ENV": "local"
+        },
+        "log_date_format": "YYYY-MM-DD HH:mm:ss"
+    }]
+}

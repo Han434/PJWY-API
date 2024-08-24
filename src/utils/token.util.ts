@@ -7,5 +7,5 @@ type SignTokenType = {
 }
 
 const signToken = ({payload = {}, jwtTokenType, noExpired} : SignTokenType) => {
-    const secret = jwtTokenType === tokenType.Access ? 
+    const secret = jwtTokenType === tokenType.Access ? "" : ""
 }
