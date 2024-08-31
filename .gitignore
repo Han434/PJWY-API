@@ -1,3 +1,16 @@
-node_modules
 .env
-dist
+
+# Ignore node_modules
+node_modules/
+
+# Ignore dist directory
+dist/
+
+# Ignore all JavaScript files
+*.js
+
+# Ignore all JavaScript map files
+*.js.map
+
+# Ignore TypeScript definition files
+*.d.ts
