@@ -17,33 +17,36 @@ dotenv_1.default.config();
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const morgan_1 = __importDefault(require("morgan"));
-const fs_1 = __importDefault(require("fs"));
-const path_1 = __importDefault(require("path"));
 const Logger_1 = __importDefault(require("./config/Logger"));
 const http_errors_1 = __importDefault(require("http-errors"));
 const database_1 = __importDefault(require("./database"));
+const loggerMiddleware_1 = require("./middleware/loggerMiddleware");
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 4000;
-const logsDir = path_1.default.join(__dirname, "logs");
-if (!fs_1.default.existsSync(logsDir)) {
-    fs_1.default.mkdirSync(logsDir, { recursive: true });
-}
-const logStream = fs_1.default.createWriteStream(path_1.default.join(logsDir, "requests.log"), { flags: 'a' });
-app.use((0, morgan_1.default)('combined', { stream: logStream }));
+app.use((0, morgan_1.default)('combined', { stream: process.stdout }));
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
-app.use((req, res, next) => {
-    Logger_1.default.info(`${req.method} ${req.originalUrl} - Status: ${res.statusCode}`);
-    next();
-});
+app.use(loggerMiddleware_1.requestLogger);
 app.all("/health-check", (req, res) => res.status(200).end("Yeah server is in good health"));
 app.use("*", (req, res, next) => {
     next((0, http_errors_1.default)("Route not found."));
 });
+app.use(loggerMiddleware_1.errorLogger);
+app.use((err, req, res, next) => {
+    const statusCode = err.status || 500;
+    if (statusCode === 401) {
+        res.status(statusCode).json({ error: "Unauthorized access" });
+    }
+    else {
+        res.status(statusCode).json({ error: err.message });
+    }
+});
 const startServer = () => __awaiter(void 0, void 0, void 0, function* () {
     app.listen(PORT, () => {
         Logger_1.default.info(`Server is running successfully at http://localhost:${PORT}`);
+    }).on("error", (err) => {
+        Logger_1.default.error(`Server error: ${err.message}`);
     });
 });
 (() => __awaiter(void 0, void 0, void 0, function* () {

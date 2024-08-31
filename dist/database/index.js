@@ -20,7 +20,7 @@ const connectDb = () => __awaiter(void 0, void 0, void 0, function* () {
         Logger_1.default.info("Connected to database");
     }
     catch (error) {
-        Logger_1.default.info("Fail to Connect database");
+        Logger_1.default.error("Fail to Connect database");
     }
 });
 exports.default = connectDb;
