@@ -3,8 +3,8 @@ import logger from "../config/Logger";
 
 const connectDb =  async () => {
     try {
-    const {uri, db_name, db_permission} = process.env;
-    await mongoose.connect(`${uri}${db_name}?${db_permission}}`);
+    const {DATABASE_URI, DB_NAME, DB_PERMISSION} = process.env;
+    await mongoose.connect(`${DATABASE_URI}${DB_NAME}?${DB_PERMISSION}`);
         logger.info("Connected to database")
     } catch (error) {
         logger.error("Fail to Connect database");
