@@ -7,4 +7,5 @@ export interface TokenType  {
 
 export interface CustomTokenRequest extends Request {
     user?: any;
+    token?: string
 }

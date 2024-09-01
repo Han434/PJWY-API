@@ -1,13 +1,7 @@
 import jwt from "jsonwebtoken"
 import logger from "../config/Logger";
 
-interface TokenSignType {
-    payload: Object;
-    secretKey: string;
-    expired_time: string;
-}
-
-const tokenSign =  async ({payload, secretKey, expired_time = "30m"} : TokenSignType) => {
+const createToken =  async (payload : Object, secretKey : string, expired_time : string = "30m") => {
    try {
     const token = jwt.sign(payload, secretKey, {expiresIn: expired_time});
     return token;
@@ -17,4 +11,4 @@ const tokenSign =  async ({payload, secretKey, expired_time = "30m"} : TokenSign
    }
 }
 
-export default tokenSign
+export default createToken

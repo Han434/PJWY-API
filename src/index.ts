@@ -8,6 +8,7 @@ import logger from "./config/Logger";
 import createError from "http-errors"
 import connectDb from "./database";
 import { errorLogger, requestLogger } from "./middleware/loggerMiddleware";
+import router from "./routes";
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -21,6 +22,8 @@ app.use(express.urlencoded({extended: true}));
 app.use(requestLogger);
 
 app.all("/health-check", (req : express.Request, res : express.Response) => res.status(200).end("Yeah server is in good health"))
+
+app.use("/v1", router);
 
 app.use("*", (req : express.Request, res : express.Response, next : express.NextFunction) => {
     next(createError("Route not found."))
