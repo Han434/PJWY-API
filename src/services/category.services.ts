@@ -1,4 +1,3 @@
-import { ObjectId } from "mongoose";
 import { CategoryModel } from "../models"
 import { CategoryInterface } from "../types/categoryType";
 
@@ -11,7 +10,7 @@ const createCategory = async (data : CategoryInterface) => {
     }
 }
 
-const editCategory = async (id : ObjectId, data : Object) => {
+const editCategory = async (id : string, data : Object) => {
     try {
         return await CategoryModel.findByIdAndUpdate(id, data, {returnOriginal: false})
     } catch (error : any) {
@@ -19,7 +18,7 @@ const editCategory = async (id : ObjectId, data : Object) => {
     }
 }
 
-const deleteCategory = async (id : ObjectId) => {
+const deleteCategory = async (id : string) => {
     try {
         return await CategoryModel.findByIdAndDelete(id)
     } catch (error : any) {
@@ -28,7 +27,7 @@ const deleteCategory = async (id : ObjectId) => {
 }
 
 
-const getCategoryById = async (id: ObjectId) => {
+const getCategoryById = async (id: string) => {
     try {
         return await CategoryModel.findById(id);
     } catch (error : any) {

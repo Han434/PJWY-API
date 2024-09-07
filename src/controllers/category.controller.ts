@@ -1,8 +1,5 @@
 import { Request, Response } from "express";
 import categoryServices from "../services/category.services";
-import mongoose from "mongoose";
-const ObjectId  = mongoose.Schema.Types.ObjectId;
-
 
 export const createCategory = async (req : Request , res : Response) => {
     try {
@@ -43,16 +40,14 @@ export const createCategory = async (req : Request , res : Response) => {
 
 export const editCategory = async (req : Request , res : Response) => {
     try {
-        const id = req.params.id;
+        const categoryId = req.params.id;
 
-       if(!id) {
+       if(!categoryId) {
         return res.status(200).json({
             success: false,
             message: "Parameter Id is required"
         })
        }
-
-       const categoryId = new ObjectId(id);
 
        const updatedData = await categoryServices.editCategory(categoryId, req.body);
 
@@ -80,18 +75,16 @@ export const editCategory = async (req : Request , res : Response) => {
 }
 
 
-export const getCategory = async (req : Request , res : Response) => {
+export const getCategoryDetail = async (req : Request , res : Response) => {
     try {
-        const id = req.params.id;
+        const categoryId = req.params.id;
 
-       if(!id) {
+       if(!categoryId) {
         return res.status(200).json({
             success: false,
             message: "Parameter Id is required"
         })
        }
-
-       const categoryId = new ObjectId(id);
 
        const category = categoryServices.getCategoryById(categoryId);
        
@@ -109,3 +102,5 @@ export const getCategory = async (req : Request , res : Response) => {
         })
     }
 }
+
+// list

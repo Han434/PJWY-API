@@ -1,9 +1,9 @@
 import express from "express"
-import { createCategory, editCategory, getCategory } from "../../controllers/category.controller";
+import { createCategory, editCategory, getCategoryDetail } from "../../controllers/category.controller";
 
 const categoryRoutes = express.Router();
 
-categoryRoutes.get("/", getCategory);
+categoryRoutes.get("/:id", getCategoryDetail);
 categoryRoutes.post("/", createCategory);
 categoryRoutes.put("/", editCategory);
 
