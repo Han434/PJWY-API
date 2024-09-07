@@ -10,5 +10,9 @@ export default Object.freeze({
     PASSWORD_RESET : {
         DB_NAME : "PasswordReset",
         COLLECTION_NAME : "password_resets"
+    },
+    CATEGORY : {
+        DB_NAME : "Category",
+        COLLECTION_NAME : "categories"
     }
 })
