@@ -6,6 +6,8 @@ import { IPasswordReset, PasswordResetSchema } from "./PasswordResetModel";
 import { CategorySchema } from "./CategoryModel";
 import { UserDocument } from "../types/userType";
 import { CategoryDocument } from "../types/categoryType";
+import { OptionDocument } from "../types/optionSetType";
+import { OptionSetSchema } from "./OptionSetModel";
 
 export const UserModel = mongoose.model<UserDocument>(databaseConstants.USER.DB_NAME, UserSchema, databaseConstants.USER.COLLECTION_NAME)
 
@@ -14,3 +16,5 @@ export const RefreshTokenModel = mongoose.model(databaseConstants.REFRESH_TOKEN.
 export const PasswordResetModel = mongoose.model<IPasswordReset>(databaseConstants.PASSWORD_RESET.DB_NAME, PasswordResetSchema, databaseConstants.PASSWORD_RESET.COLLECTION_NAME);
 
 export const CategoryModel = mongoose.model<CategoryDocument>(databaseConstants.CATEGORY.DB_NAME, CategorySchema, databaseConstants.CATEGORY.COLLECTION_NAME);
+
+export const OptionSetModel = mongoose.model<OptionDocument>(databaseConstants.OPTION.DB_NAME, OptionSetSchema, databaseConstants.OPTION.COLLECTION_NAME)

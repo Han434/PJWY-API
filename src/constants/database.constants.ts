@@ -14,5 +14,9 @@ export default Object.freeze({
     CATEGORY : {
         DB_NAME : "Category",
         COLLECTION_NAME : "categories"
+    },
+    OPTION : {
+        DB_NAME : "OptionSet",
+        COLLECTION_NAME : "option_set"
     }
 })

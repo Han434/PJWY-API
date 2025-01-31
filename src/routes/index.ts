@@ -2,6 +2,7 @@ import express from "express"
 import userRouter from "./roots/user.routes";
 import tokenRouter from "./roots/token.routes";
 import categoryRoutes from "./roots/category.routes";
+import optionSetRoutes from "./roots/optionSet.routes";
 
 const router = express.Router();
 
@@ -12,6 +13,7 @@ router.all("/", (req : express.Request, res : express.Response) => {
 
 router.use("/", tokenRouter);
 router.use("/category", categoryRoutes);
+router.use("/optionSet", optionSetRoutes);
 router.use("/user", userRouter);
 
 

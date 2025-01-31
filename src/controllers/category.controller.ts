@@ -80,13 +80,13 @@ export const getCategoryDetail = async (req : Request , res : Response) => {
         const categoryId = req.params.id;
 
        if(!categoryId) {
-        return res.status(200).json({
+        return res.status(400).json({
             success: false,
             message: "Parameter Id is required"
         })
        }
 
-       const category = categoryServices.getCategoryById(categoryId);
+       const category = await categoryServices.getCategoryById(categoryId);
        
        return res.status(200).json({
             success: true,

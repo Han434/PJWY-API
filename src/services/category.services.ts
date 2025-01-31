@@ -1,43 +1,53 @@
-import { CategoryModel } from "../models"
+import { CategoryModel } from "../models";
 import { CategoryInterface } from "../types/categoryType";
+import mongoose from "mongoose";
 
-const createCategory = async (data : CategoryInterface) => {
+class CustomError extends Error {
+    constructor(message: string) {
+        super(message);
+        this.name = "CustomError";
+    }
+}
+
+const createCategory = async (data: CategoryInterface): Promise<CategoryInterface> => {
     try {
         const category = await CategoryModel.create(data);
-        return category
-    } catch (error : any) {
-        throw new Error(error);
+        return category;
+    } catch (error: any) {
+        throw new CustomError(`Failed to create category: ${error.message}`);
     }
-}
+};
 
-const editCategory = async (id : string, data : Object) => {
+const editCategory = async (id: string, data: Partial<CategoryInterface>): Promise<CategoryInterface | null> => {
     try {
-        return await CategoryModel.findByIdAndUpdate(id, data, {returnOriginal: false})
-    } catch (error : any) {
-        throw new Error(error);
+        const updatedCategory = await CategoryModel.findByIdAndUpdate(id, data, { new: true, lean: true });
+        return updatedCategory;
+    } catch (error: any) {
+        throw new CustomError(`Failed to edit category: ${error.message}`);
     }
-}
+};
 
-const deleteCategory = async (id : string) => {
+const deleteCategory = async (id: string): Promise<CategoryInterface | null> => {
     try {
-        return await CategoryModel.findByIdAndDelete(id)
-    } catch (error : any) {
-        throw new Error(error);
+        const deletedCategory = await CategoryModel.findByIdAndDelete(id);
+        return deletedCategory;
+    } catch (error: any) {
+        throw new CustomError(`Failed to delete category: ${error.message}`);
     }
-}
+};
 
-
-const getCategoryById = async (id: string) => {
+const getCategoryById = async (id: string): Promise<CategoryInterface | null> => {
     try {
-        return await CategoryModel.findById(id);
-    } catch (error : any) {
-        throw new Error(error)
+        const category = await CategoryModel.findById(id).lean();
+        return category;
+    } catch (error: any) {
+        throw new CustomError(`Failed to get category by ID: ${error.message}`);
     }
-}
+};
 
 export default {
     createCategory,
     editCategory,
     deleteCategory,
-    getCategoryById
-}
+    getCategoryById,
+};
