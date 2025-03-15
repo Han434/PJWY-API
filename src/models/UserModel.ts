@@ -3,12 +3,12 @@ import { modelOptions } from "../utils/model.options";
 import { UserDocument } from "../types/userType";
 
 export const UserSchema = new mongoose.Schema<UserDocument>({
-    userName : {
+    name : {
         type : String,
         required: true,
-        unique: true
+        unique: false
     },
-    emailAddress : {
+    userName : {
         type: String,
         required: true,
         unique: true
@@ -16,8 +16,5 @@ export const UserSchema = new mongoose.Schema<UserDocument>({
     password : {
         type: String,
         required: true
-    },
-    refreshToken : {
-        type: String
     }
 }, modelOptions);

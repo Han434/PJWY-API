@@ -1,19 +1,19 @@
 export default Object.freeze({
     USER : {
         DB_NAME: "User",
-        COLLECTION_NAME : "users"
+        COLLECTION_NAME : "user"
     },
-    REFRESH_TOKEN : {
-        DB_NAME : "RefreshToken",
-        COLLECTION_NAME : "refresh_tokens"
+    BUSSINESS : {
+        DB_NAME : "Bussiness",
+        COLLECTION_NAME : "bussiness"
     },
-    PASSWORD_RESET : {
-        DB_NAME : "PasswordReset",
-        COLLECTION_NAME : "password_resets"
+    STORE : {
+        DB_NAME : "Store",
+        COLLECTION_NAME : "store"
     },
     CATEGORY : {
         DB_NAME : "Category",
-        COLLECTION_NAME : "categories"
+        COLLECTION_NAME : "category"
     },
     OPTION : {
         DB_NAME : "OptionSet",

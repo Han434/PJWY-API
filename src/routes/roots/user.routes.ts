@@ -1,19 +1,12 @@
 import express from "express"
-import { changePassword, forgetPassword, getUserInfo, resetPassword, userLogout, userSignIn, userSignUp } from "../../controllers/user.controller";
-import { verifyToken } from "../../middleware/tokenValidation";
-import { userRequireMiddleware } from "../../middleware/userMiddleware";
+import { getAllUsers, getUserById, createUser, updateUser, deleteUser } from "../../controllers/user.controller";
 
 const userRouter = express.Router();
 
-// Public routes
-userRouter.post("/signup", userRequireMiddleware(true), userSignUp);
-userRouter.post("/signin", userRequireMiddleware(false), userSignIn);
-
-// Protected routes
-userRouter.get("/:id", verifyToken, getUserInfo);
-userRouter.post("/logout", verifyToken, userLogout);
-userRouter.post("/change-password", verifyToken, userRequireMiddleware(false), changePassword);
-userRouter.post("/forget-password", verifyToken, forgetPassword);
-userRouter.post("/reset-password", verifyToken, resetPassword);
+userRouter.get("/", getAllUsers);
+userRouter.get("/:id", getUserById);
+userRouter.post("/", createUser);
+userRouter.put("/:id", updateUser);
+userRouter.post("/", deleteUser);
 
 export default userRouter
